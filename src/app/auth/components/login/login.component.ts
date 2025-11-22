@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   private readonly _AuthService = inject(AuthService);
+  hide = signal(true);
   loginForm: FormGroup = new FormGroup({
     phone: new FormControl(null, [
       Validators.required,
@@ -19,6 +20,10 @@ export class LoginComponent {
   });
 
   login(loginForm: FormGroup) {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
     const formData = new FormData();
     formData.append('phone', loginForm.value.phone);
     formData.append('password', loginForm.value.password);
@@ -27,5 +32,10 @@ export class LoginComponent {
         console.log(res);
       },
     });
+  }
+
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
   }
 }

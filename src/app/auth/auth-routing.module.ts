@@ -4,6 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthLayoutComponent } from './components/auth-layout/auth-layout.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { EnterOtpComponent } from './components/enter-otp/enter-otp.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 const routes: Routes = [
   {
@@ -21,6 +23,21 @@ const routes: Routes = [
         path: 'ForgetPassword',
         component: ForgetPasswordComponent,
         title: 'ForgetPassword',
+      },
+      {
+        path: 'otp',
+        component: EnterOtpComponent,
+        title: 'EnterOtp',
+      },
+      {
+        path: 'forgetpassword',
+        component: ForgetPasswordComponent,
+        title: 'forgetPassword',
+      },
+      {
+        path: 'resetPassword',
+        component: NewPasswordComponent,
+        title: 'resetPassword',
       },
     ],
   },

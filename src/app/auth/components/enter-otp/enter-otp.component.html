@@ -1,1 +1,38 @@
-<p>enter-otp works!</p>
+<div class="container d-flex flex-column justify-content-center align-items-center h-75">
+
+    <h5 class="fw-semibold text-center mb-2">
+        Please Enter the OTP to your phone number :
+    </h5>
+
+    <p class="text-center text-muted mb-4">+20 1XXXXXXXXX</p>
+
+    <!-- OTP Inputs -->
+    <div class="d-flex gap-3 mb-4">
+        <input id="otp-0" type="text" maxlength="1" class="otp-box form-control text-center fs-3"
+            (input)="onOtpInput($event, 0)" (keydown)="onKeyDown($event, 0)" inputmode="numeric">
+
+        <input id="otp-1" type="text" maxlength="1" class="otp-box form-control text-center fs-3"
+            (input)="onOtpInput($event, 1)" (keydown)="onKeyDown($event, 1)" inputmode="numeric">
+
+        <input id="otp-2" type="text" maxlength="1" class="otp-box form-control text-center fs-3"
+            (input)="onOtpInput($event, 2)" (keydown)="onKeyDown($event, 2)" inputmode="numeric">
+
+        <input id="otp-3" type="text" maxlength="1" class="otp-box form-control text-center fs-3"
+            (input)="onOtpInput($event, 3)" (keydown)="onKeyDown($event, 3)" inputmode="numeric">
+    </div>
+
+    <!-- Verify Button -->
+    <button class="btn btn-success w-75 py-3 mb-3" [disabled]="verifyDisabled()" (click)="verifyCode()">
+
+        Verify Code
+    </button>
+
+    <!-- Resend text + countdown -->
+    <p class="text-muted m-0">
+        Did not get the code?
+        <span>Resend the code in
+            <span class="text-danger fw-semibold">59</span> secs
+        </span>
+    </p>
+
+</div>
