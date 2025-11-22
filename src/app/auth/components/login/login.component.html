@@ -1,0 +1,68 @@
+<div class="container-fluid h-100">
+
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)"
+        class="h-100 d-flex justify-content-center align-items-center flex-column gap-3">
+
+        <!-- Title -->
+        <h2 class="w-75 text-start">Login</h2>
+
+        <!-- Phone Input -->
+        <div class="input-group flex-nowrap w-75 ">
+            <span class="input-group-text" id="PhoneNumber"><i class="fa-solid fa-mobile"></i></span>
+            <input formControlName="phone" type="tel" class="form-control py-3" placeholder="Enter your Phone Number"
+                aria-label="PhoneNumber" aria-describedby="PhoneNumber">
+        </div>
+
+        <!-- Error Messages -->
+        <div class="w-75">
+            @if(loginForm.get('phone')?.hasError('required') && loginForm.get('phone')?.touched){
+            <p class="alert alert-danger p-2 m-0 d-block w-100">
+                Phone number is required
+            </p>
+            }
+            @if(loginForm.get('phone')?.hasError('pattern') && loginForm.get('phone')?.touched){
+            <p class="alert alert-danger p-2 m-0 d-block w-100">
+                Incorrect phone number. Please enter an Egyptian number.
+            </p>
+            }
+        </div>
+
+        <!-- Password Input -->
+        <div class="input-group flex-nowrap w-75">
+            <span class="input-group-text" id="Password"><i class="fa-solid fa-key"></i></span>
+            <input formControlName="password" type="password" class="form-control py-3"
+                placeholder="Enter Your Password" aria-label="Password" aria-describedby="Password">
+        </div>
+        <!-- Error Messages -->
+        <div class="w-75">
+            @if(loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched){
+            <p class="alert alert-danger p-2 m-0 d-block w-100">
+                password is required
+            </p>
+            }
+        </div>
+
+        <!-- Remember + Forgot -->
+        <div class="d-flex justify-content-between align-items-center w-75">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Remember">
+                <label class="form-check-label" for="Remember">
+                    Remember Me
+                </label>
+            </div>
+            <div>
+                <a class="text-danger text-decoration-none" routerLink="/auth/ForgetPassword">Forget your password?</a>
+            </div>
+        </div>
+
+
+        <!-- Login Button -->
+        <button class="btn btn-success w-75 py-3">Login</button>
+
+        <p>Don’t Have An Account?
+            <span><a class="text-danger text-decoration-none" routerLink="/auth/createAccount">Sign Up</a></span>
+        </p>
+
+    </form>
+
+</div>
