@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.password-toggle-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
