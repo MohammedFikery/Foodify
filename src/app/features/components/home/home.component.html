@@ -1,0 +1,51 @@
+<div class="container py-4 pt-5">
+    <h2 class="pb-5">Chef’s Recommendations</h2>
+    <div class="row g-5">
+
+        <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of foods">
+
+            <div class="food-card">
+
+                <!-- Image -->
+                <div class="image-container">
+                    <img [src]="item.image" alt="">
+                </div>
+
+                <!-- Title + Description -->
+                <h4 class="title">{{ item.name }}</h4>
+                <p class="desc">{{ item.description }}</p>
+
+                <!-- Price -->
+                <h5 class="price">{{ item.price }} <span>EGP</span></h5>
+
+                <!-- Stars + Macros -->
+                <div class="bottom-row d-flex justify-content-between align-items-center mt-2">
+
+                    <!-- Stars -->
+                    <div class="rating">
+                        <i class="fa-solid fa-star" *ngFor="let s of getStars(item.rating)"></i>
+                        <i class="fa-regular fa-star" *ngFor="let s of getEmptyStars(item.rating)"></i>
+                    </div>
+
+                    <!-- kcal + protein -->
+                    <div class="macros d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-fire-flame-curved kcal-icon"></i>
+                        <span>{{ item.kcal }} kcal • {{ item.protein }}</span>
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="actions d-flex align-items-center justify-content-end gap-3 mt-3">
+                    <button class="fav-btn">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <button class="add-btn">Add</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

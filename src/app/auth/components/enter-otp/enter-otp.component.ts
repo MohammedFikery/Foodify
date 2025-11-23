@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
   AfterViewInit,
   Component,
@@ -7,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-enter-otp',
@@ -16,6 +18,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class EnterOtpComponent {
   private readonly _AuthService = inject(AuthService);
+  private readonly _ToastrService = inject(ToastrService);
+  private readonly Router = inject(Router);
+
   otp = ['', '', '', ''];
   verifyDisabled = signal(true);
 
@@ -48,7 +53,9 @@ export class EnterOtpComponent {
     formData.append('phone', this._AuthService.phoneNumber());
     this._AuthService.VerifyAccount(formData).subscribe({
       next: (res) => {
-        console.log(res);
+        console.log(res.message);
+        this._ToastrService.success(res.message, 'successfully');
+        this.Router.navigate(['/auth/login']);
       },
     });
   }

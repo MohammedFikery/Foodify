@@ -1,0 +1,61 @@
+.footer-section {
+  .footer-text {
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  /* Social Icons */
+  .social {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #fff;
+    transition: 0.3s;
+
+    &:hover {
+      background: #fff;
+      color: #198754;
+      transform: translateY(-3px);
+    }
+  }
+
+  /* Footer Links */
+  .footer-links li {
+    margin-bottom: 8px;
+
+    a {
+      color: #fff;
+      opacity: 0.85;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: 0.3s;
+
+      /* underline animation like navbar (from center) */
+      &::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -2px;
+        transform: translateX(-50%) scaleX(0);
+        transform-origin: center;
+        width: 100%;
+        height: 2px;
+        background: #fff;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:hover::after {
+        transform: translateX(-50%) scaleX(1);
+      }
+    }
+  }
+}

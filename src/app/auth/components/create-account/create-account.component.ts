@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-account',
@@ -17,6 +18,7 @@ import { Router } from '@angular/router';
 export class CreateAccountComponent {
   private readonly _AuthService = inject(AuthService);
   private readonly Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
   hide = signal(true);
 
   createAccountForm: FormGroup = new FormGroup(
@@ -47,7 +49,7 @@ export class CreateAccountComponent {
     );
     this._AuthService.createNewAccount(formData).subscribe({
       next: (res) => {
-        console.log(res);
+        this._ToastrService.success(res.message, 'successfully');
         this._AuthService.phoneNumber.set(createAccountForm.value.phone);
         this.Router.navigate(['/auth/otp']);
       },

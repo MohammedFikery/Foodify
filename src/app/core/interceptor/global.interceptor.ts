@@ -12,6 +12,7 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (isPlatformBrowser(id)) {
     userToken = localStorage.getItem('userToken') || '';
+    console.log('Current Token in Storage:', localStorage.getItem('userToken'));
   }
   spinner.show();
   const myReq = req.clone({

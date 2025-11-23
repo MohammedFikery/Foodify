@@ -1,0 +1,74 @@
+.food-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .image-container {
+    position: absolute;
+    top: -40px;
+    right: -20px;
+
+    img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .title {
+    margin-top: 60px;
+    font-weight: 700;
+  }
+
+  .desc {
+    opacity: 0.7;
+  }
+
+  .price {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .rating i {
+    color: #f7c000;
+    font-size: 20px;
+    margin-right: 3px;
+  }
+
+  .kcal-icon {
+    color: green;
+  }
+
+  .fav-btn {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 8px 14px;
+
+    i {
+      color: green;
+      font-size: 22px;
+    }
+  }
+
+  .add-btn {
+    background: green;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 12px;
+    border: none;
+    transition: 0.3s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

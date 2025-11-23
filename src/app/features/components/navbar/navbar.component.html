@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg bg-success py-2 fixed-top app-navbar">
+    <div class="container-fluid">
+
+        <!-- Logo - Left -->
+        <a class="navbar-brand d-flex align-items-center" routerLink="">
+            <img src="assets/images/Logo.svg" class="logo" alt="Foodify">
+        </a>
+
+        <!-- Toggler -->
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Center Menu -->
+        <div class="collapse navbar-collapse justify-content-center" id="mainNav">
+            <ul class="navbar-nav gap-4 center-menu">
+
+                <li class="nav-item d-flex align-items-center gap-2" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">
+                    <i class="fa-solid fa-house text-white"></i>
+                    <a class="nav-link text-white" routerLink="/layout/home">Home</a>
+                </li>
+
+                <li class="nav-item d-flex align-items-center gap-2" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">
+                    <i class="fa-solid fa-layer-group text-white"></i>
+                    <a class="nav-link text-white" routerLink="/layout/categories">Categories</a>
+                </li>
+
+                <li class="nav-item d-flex align-items-center gap-2" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }">
+                    <i class="fa-solid fa-heart text-white"></i>
+                    <a class="nav-link text-white" routerLink="/layout/favorite">Favorite</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Right Section -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- Cart with badge -->
+            <div class="position-relative">
+                <i class="fa-solid fa-cart-shopping text-white fs-4"></i>
+                <span class="badge cart-badge">3</span>
+            </div>
+
+            <!-- User Info -->
+            <div class="d-flex align-items-center gap-2">
+                <img class="profileImage" src="assets/images/bgmain2.png" alt="">
+                <span class="text-white fw-semibold">MohamedfIKERY</span>
+            </div>
+
+        </div>
+
+    </div>
+</nav>

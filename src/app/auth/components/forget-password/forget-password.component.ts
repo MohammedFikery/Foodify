@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forget-password',
@@ -10,6 +12,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ForgetPasswordComponent {
   private readonly _AuthService = inject(AuthService);
+  private readonly Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
+
   ForgetPassword: FormGroup = new FormGroup({
     phone: new FormControl(null, [
       Validators.required,
@@ -26,8 +31,11 @@ export class ForgetPasswordComponent {
     formData.append('phone', ForgetPassword.value.phone);
     this._AuthService.forgotPassword(formData).subscribe({
       next: (res) => {
-        console.log(res);
+        console.log(res.message);
+        this._ToastrService.success(res.message, ' successfully');
+        this._AuthService.phoneNumber.set(ForgetPassword.value.phone);
         this._AuthService.otp.set('1234');
+        this.Router.navigate(['/auth/otp']);
       },
     });
   }
