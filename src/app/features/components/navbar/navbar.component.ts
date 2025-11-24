@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -10,16 +10,29 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  id = inject(PLATFORM_ID);
-  userName = signal<string>('User');
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly router = inject(Router);
 
-  ngOnInit(): void {
-    this.getUserDataFromLocalStorage();
+  userName = signal<string>('User');
+  toggle = false;
+
+  changeToggle(): void {
+    this.toggle = !this.toggle;
   }
 
-  getUserDataFromLocalStorage(): void {
-    if (isPlatformBrowser(this.id)) {
-      this.userName.set(localStorage.getItem('userFull_name') ?? 'User');
+  ngOnInit(): void {
+    this.loadUser();
+  }
+
+  private loadUser(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const name = localStorage.getItem('userFull_name');
+      this.userName.set(name ?? 'User');
     }
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
   }
 }

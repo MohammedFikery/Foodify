@@ -5,19 +5,19 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HomeService } from '../../services/home.service';
 import { SharedService } from '../../../core/services/shared.service';
 import { Irecommended } from '../../interfaces/Irecommended';
-import { ICategories } from '../../interfaces/ICategories';
+import { AuthRoutingModule } from "../../../auth/auth-routing.module";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CarouselModule],
+  imports: [CommonModule, CarouselModule, AuthRoutingModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  id = inject(PLATFORM_ID);
-  private readonly _HomeService = inject(HomeService);
-  private readonly _SharedService = inject(SharedService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly homeService = inject(HomeService);
+  private readonly sharedService = inject(SharedService);
 
   foods = signal<Irecommended[]>([]);
   categories = signal<any>([]);
@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
     autoplayTimeout: 1000,
     autoplaySpeed: 400,
     autoplayHoverPause: true,
+    center: false,
+
     autoHeight: false,
     responsive: {
       0: { items: 1 },
@@ -51,45 +53,50 @@ export class HomeComponent implements OnInit {
   }
 
   getRecommended() {
-    this._HomeService.recommended().subscribe({
+    this.homeService.recommended().subscribe({
       next: (res: any) => {
-        const data = res.data.map((item: any) => ({
+        const mapped = res.data.map((item: any) => ({
           ...item,
           quantity: signal(1),
         }));
-        this.foods.set(data);
+        this.foods.set(mapped);
       },
     });
   }
 
   getCategories() {
-    this._SharedService.categories(this.searchValue()).subscribe({
-      next: (res: any) => {
-        this.categories.set(res.data);
-      },
+    this.sharedService.categories(this.searchValue()).subscribe({
+      next: (res: any) => this.categories.set(res.data),
     });
   }
 
-  increaseQty(item: any): void {
+  onSearch(event: any) {
+    this.searchValue.set(event.target.value);
+    this.getCategories();
+  }
+
+  onEnter() {
+    this.getCategories();
+  }
+
+  increaseQty(item: any) {
     item.quantity.update((q: number) => q + 1);
   }
 
-  decreaseQty(item: any): void {
+  decreaseQty(item: any) {
     item.quantity.update((q: number) => (q > 1 ? q - 1 : q));
   }
 
   addProductToCart(item: any) {
-    const payload = {
-      quantity: item.quantity(),
-    };
-    this._SharedService.addToCart(item.id, payload);
+    this.sharedService.addToCart(item.id, { quantity: item.quantity() });
   }
+
   ToggleFavorites(id: number) {
-    this._SharedService.ToggleFavorites(id);
+    this.sharedService.ToggleFavorites(id);
   }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.id)) {
+    if (isPlatformBrowser(this.platformId)) {
       this.getRecommended();
       this.getCategories();
     }

@@ -1,35 +1,32 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-} from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { SharedService } from '../../../core/services/shared.service';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-favorite',
+  selector: 'app-dashes',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './favorite.component.html',
-  styleUrl: './favorite.component.scss',
+  templateUrl: './dashes.component.html',
+  styleUrl: './dashes.component.scss',
 })
-export class FavoriteComponent implements OnInit {
+export class DashesComponent implements OnInit {
   private readonly _SharedService = inject(SharedService);
+  private readonly _ActivatedRoute = inject(ActivatedRoute);
   id = inject(PLATFORM_ID);
-  Favorite = signal<any>([]);
-  getFavorite() {
-    this._SharedService.myFavorite().subscribe({
+  dashes = signal<any>([]);
+  CatId = signal<string | null>('');
+  searchValue = signal<string>('');
+
+  getdashes() {
+    this._SharedService.dashes(this.CatId(), this.searchValue()).subscribe({
       next: (res: any) => {
         const data = res.data.map((item: any) => ({
           ...item,
           quantity: signal(1),
         }));
-        this.Favorite.set(data);
+        this.dashes.set(data);
       },
     });
   }
@@ -50,7 +47,7 @@ export class FavoriteComponent implements OnInit {
   }
   ToggleFavorites(id: number) {
     this._SharedService.ToggleFavorites(id);
-    this.getFavorite();
+    this.getdashes();
   }
   addProductToCart(item: any) {
     const payload = {
@@ -58,9 +55,20 @@ export class FavoriteComponent implements OnInit {
     };
     this._SharedService.addToCart(item.id, payload);
   }
+  onSearch(event: any) {
+    this.searchValue.set(event.target.value);
+    this.getdashes();
+  }
+
+  onEnter() {
+    this.getdashes();
+  }
   ngOnInit(): void {
+    this._ActivatedRoute.paramMap.subscribe((params) => {
+      this.CatId.set(params.get('id'));
+    });
     if (isPlatformBrowser(this.id)) {
-      this.getFavorite();
+      this.getdashes();
     }
   }
 }

@@ -1,10 +1,18 @@
 <div class="container py-4 pt-5">
+    <form class="search-form mb-2">
+        <div class="search-wrap mx-auto">
+            <i class="fas fa-search search-icon"></i>
+
+            <input type="search" class="form-control search-input rounded-pill" placeholder="Search about category"
+                [value]="searchValue()" (input)="onSearch($event)" (keyup.enter)="onEnter()" />
+        </div>
+    </form>
     <div class="row g-5 mt-1">
         <!-- No Data Found Message -->
-        <div *ngIf="Favorite().length === 0" class="no-data-box">
+        <div *ngIf="dashes().length === 0" class="no-data-box">
             <h3>No Data Found</h3>
         </div>
-        <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of Favorite()">
+        <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of dashes()">
 
             <div class="food-card">
 

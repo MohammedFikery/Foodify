@@ -1,75 +1,94 @@
 <div class="container py-4 pt-5">
 
-    <section>
-        <div class="container py-4">
-            <owl-carousel-o [options]="carouselOptions" class="owl-theme">
+    <form class="search-form mb-5">
+        <div class="search-wrap mx-auto">
+            <i class="fas fa-search search-icon"></i>
 
-                @for (d of categories(); track $index) {
-                <ng-template carouselSlide>
-                    <div class="category-card">
-                        <img [src]="d.image ? d.image : 'assets/images/NoImage.jpeg'" alt="Balanced Meals"
-                            class="category-img" />
-                        <h6 class="fw-semibold text-center py-2">{{ d.name }}</h6>
-                    </div>
-                </ng-template>
-                }
-
-            </owl-carousel-o>
+            <input type="search" class="form-control search-input rounded-pill" placeholder="Search about category"
+                [value]="searchValue()" (input)="onSearch($event)" (keyup.enter)="onEnter()" />
         </div>
+    </form>
+
+    <section>
+
+        <!-- No Data Found Message -->
+        <div *ngIf="categories().length === 0" class="no-data-box">
+            <h3>No Data Found</h3>
+        </div>
+
+        <!-- Carousel -->
+        <owl-carousel-o *ngIf="categories().length > 0" [options]="carouselOptions" class="owl-theme">
+            @for (c of categories(); track $index) {
+            <ng-template carouselSlide>
+                <div [routerLink]="['/layout/dashes', c.id]" class="category-card">
+                    <img [src]="c.image ? c.image : 'assets/images/NoImage.jpeg'" class="category-img" />
+                    <h6 class="fw-semibold text-center py-2">{{ c.name }}</h6>
+                </div>
+            </ng-template>
+            }
+        </owl-carousel-o>
+
     </section>
 
-    <h2 class="pb-5">Chef’s Recommendations</h2>
 
-    <div class="row g-5">
+    <section>
+        <h2 class="pb-5">Chef’s Recommendations</h2>
 
-        <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of foods()">
+        <div class="row g-5">
+            <!-- No Data Found Message -->
+            <div *ngIf="foods().length === 0" class="no-data-box">
+                <h3>No Data Found</h3>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of foods()">
 
-            <div class="food-card">
-
-                <div class="image-container">
-                    <img [src]="item.image ? item.image : 'assets/images/NoImage.jpeg'" alt="Balanced Meals" />
-                </div>
-
-                <h4 class="title">{{ item.name }}</h4>
-                <p class="desc">{{ item.description }}</p>
-
-                <h5 class="price">{{ item.price }} <span>EGP</span></h5>
-
-                <div class="bottom-row d-flex justify-content-between align-items-center mt-2">
-                    <div class="rating">
-                        <i class="fa-solid fa-star" *ngFor="let s of getStars(item.rating)"></i>
-                        <i class="fa-regular fa-star" *ngFor="let s of getEmptyStars(item.rating)"></i>
+                <div class="food-card">
+                    <div class="image-container">
+                        <img [src]="item.image ? item.image : 'assets/images/NoImage.jpeg'" />
                     </div>
 
-                    <div class="macros d-flex align-items-center gap-2">
-                        <i class="fa-solid fa-fire-flame-curved kcal-icon"></i>
-                        <span>{{ item.kcal }} kcal • {{ item.protein }}</span>
+                    <h4 class="title">{{ item.name }}</h4>
+                    <p class="desc">{{ item.description }}</p>
+
+                    <h5 class="price">
+                        {{ item.price }}
+                        <span>EGP</span>
+                    </h5>
+
+                    <div class="bottom-row d-flex justify-content-between align-items-center mt-2">
+                        <div class="rating">
+                            <i class="fa-solid fa-star" *ngFor="let s of getStars(item.rating)"></i>
+                            <i class="fa-regular fa-star" *ngFor="let s of getEmptyStars(item.rating)"></i>
+                        </div>
+
+                        <div class="macros d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-fire-flame-curved kcal-icon"></i>
+                            <span>{{ item.kcal }} kcal • {{ item.protein }}</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="actions d-flex align-items-center justify-content-between mt-3">
+                    <div class="actions d-flex align-items-center justify-content-between mt-3">
 
-                    <div>
                         <div class="qty-counter d-flex align-items-center gap-2">
                             <button class="qty-btn" (click)="decreaseQty(item)">−</button>
                             <span class="qty-value">{{ item.quantity() }}</span>
                             <button class="qty-btn" (click)="increaseQty(item)">+</button>
                         </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
 
-                        <button (click)="ToggleFavorites(item.id)" class="fav-btn">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                        <button (click)="addProductToCart(item)" class="add-btn">Add To Cart</button>
-                    </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="fav-btn" (click)="ToggleFavorites(item.id)">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
 
+                            <button class="add-btn" (click)="addProductToCart(item)">
+                                Add To Cart
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
-
         </div>
 
-    </div>
-
+    </section>
 </div>

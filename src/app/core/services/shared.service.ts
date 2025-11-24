@@ -26,6 +26,11 @@ export class SharedService {
   myFavorite(): Observable<any> {
     return this._HttpClient.get(`/api/favorites`);
   }
+  dashes(Catid: string | null, searchValue: string): Observable<any> {
+    return this._HttpClient.get(
+      `/api/categories/${Catid}/dishes?search=${searchValue}`
+    );
+  }
   //#endregion
 
   //#region function

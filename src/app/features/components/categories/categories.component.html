@@ -1,21 +1,37 @@
-<p>categories works!</p>
-<div class="categories-wrapper container py-4">
+<div class="container py-4 pt-5">
+    <form class="search-form mb-2">
+        <div class="search-wrap mx-auto">
+            <i class="fas fa-search search-icon"></i>
 
-    <div class="row g-4">
+            <input type="search" class="form-control search-input rounded-pill" placeholder="Search about category"
+                [value]="searchValue()" (input)="onSearch($event)" (keyup.enter)="onEnter()" />
+        </div>
+    </form>
+    <div class="categories-wrapper container py-4">
 
-        <div class="col-6 col-md-4 col-lg-3" *ngFor="let c of categories()">
-
-            <div class="meal-card">
-                <div class="meal-img">
-                    <img [src]="c.image ? c.image : 'assets/images/NoImage.jpeg'" alt="Balanced Meals" />
-                </div>
-                <div class="meal-title">
-                    Balanced Meals
-                </div>
+        <div class="row g-4">
+            <!-- No Data Found Message -->
+            <div *ngIf="categories().length === 0" class="no-data-box">
+                <h3>No Data Found</h3>
             </div>
+
+            <div class="col-6 col-md-4 col-lg-3" *ngFor="let c of categories()">
+
+                <div [routerLink]="['/layout/dashes', c.id]" class="meal-card">
+                    <div class="meal-img text-center">
+                        <img [src]="c.image ? c.image : 'assets/images/NoImage.jpeg'" class="object-fit-contain"
+                            alt="Balanced Meals" />
+                    </div>
+
+                    <div class="meal-title">
+                        {{ c.name }}
+                    </div>
+                </div>
+
+            </div>
+
 
         </div>
 
     </div>
-
 </div>

@@ -1,20 +1,63 @@
+/* ===============================
+   Search Box
+=============================== */
+.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-wrap {
+  width: 100%;
+  position: relative;
+  transition: 0.4s ease;
+}
+
+.search-input {
+  height: 48px;
+  width: 100%;
+  padding-left: 44px !important;
+  background: #f3f5f8;
+  border: 1px solid #eef0f4;
+  color: #1f2937;
+  border-radius: 14px;
+  box-shadow: inset 0 6px 18px rgba(16, 24, 40, 0.06),
+    0 2px 12px rgba(16, 24, 40, 0.05);
+
+  &::placeholder {
+    color: #98a2b3;
+  }
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #98a2b3;
+}
+
+/* ===============================
+   Meal Card
+=============================== */
 .meal-card {
   width: 100%;
   background: #ffffff;
   border-radius: 22px;
   padding: 12px;
-  box-shadow: 0 0 0 4px #ffffff;
-  border: 2px solid #e6e6e6;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0 0 0 4px #ffffff;
   transition: 0.3s ease;
-}
+  cursor: pointer;
 
-.meal-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .meal-img {
@@ -29,15 +72,57 @@
 }
 
 .meal-title {
+  width: 90%;
+  text-align: center;
   background: #016f36;
   color: #fff;
   padding: 8px 14px;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
-  text-align: center;
-  width: 90%;
 }
+
+/* ===============================
+   No Data Found Box
+=============================== */
+.no-data-box {
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  background: #fcfcfc;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  animation: fadeIn 0.4s ease;
+
+  h3 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #d30000;
+    margin-bottom: 6px;
+  }
+
+  p {
+    color: #777;
+    font-size: 15px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+   Mobile Responsive
+=============================== */
 @media (max-width: 576px) {
   .meal-img img {
     height: 120px;
@@ -46,5 +131,9 @@
   .meal-title {
     font-size: 0.95rem;
     padding: 6px 12px;
+  }
+
+  .no-data-box h3 {
+    font-size: 22px;
   }
 }

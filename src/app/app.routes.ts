@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -9,6 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'layout',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./features/components/layout/layout.component').then(
         (c) => c.LayoutComponent
@@ -34,6 +36,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/components/favorite/favorite.component').then(
             (c) => c.FavoriteComponent
+          ),
+      },
+      {
+        path: 'dashes/:id',
+        loadComponent: () =>
+          import('./features/components/dashes/dashes.component').then(
+            (c) => c.DashesComponent
           ),
       },
     ],

@@ -1,55 +1,92 @@
 <nav class="navbar navbar-expand-lg bg-success py-2 fixed-top app-navbar">
     <div class="container-fluid">
 
-        <!-- Logo - Left -->
-        <a class="navbar-brand d-flex align-items-center" routerLink="">
-            <img src="assets/images/Logo.svg" class="logo ps-5" alt="Foodify">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center ps-5" routerLink="">
+            <img src="assets/images/Logo.svg" class="logo" alt="Foodify">
         </a>
 
         <!-- Toggler -->
-        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="collapse"
+            data-bs-target="#mainNav">
+            <i class="fa-solid fa-bars fs-2 text-white"></i>
         </button>
 
-        <!-- Center Menu -->
-        <div class="collapse navbar-collapse justify-content-center" id="mainNav">
-            <ul class="navbar-nav gap-4 center-menu">
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="mainNav">
 
-                <li class="nav-item d-flex align-items-center gap-2" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }">
-                    <i class="fa-solid fa-house text-white"></i>
-                    <a class="nav-link text-white" routerLink="/layout/home">Home</a>
+            <!-- Center Menu -->
+            <ul class="navbar-nav mx-auto gap-lg-4 center-menu text-center">
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <a class="nav-link d-flex align-items-center gap-2 text-white" routerLink="/layout/home">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
                 </li>
 
-                <li class="nav-item d-flex align-items-center gap-2" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }">
-                    <i class="fa-solid fa-layer-group text-white"></i>
-                    <a class="nav-link text-white" routerLink="/layout/categories">Categories</a>
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <a class="nav-link d-flex align-items-center gap-2 text-white" routerLink="/layout/categories">
+                        <i class="fa-solid fa-layer-group"></i> Categories
+                    </a>
                 </li>
 
-                <li class="nav-item d-flex align-items-center gap-2" routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }">
-                    <i class="fa-solid fa-heart text-white"></i>
-                    <a class="nav-link text-white" routerLink="/layout/favorite">Favorite</a>
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <a class="nav-link d-flex align-items-center gap-2 text-white" routerLink="/layout/favorite">
+                        <i class="fa-solid fa-heart"></i> Favorite
+                    </a>
                 </li>
-
             </ul>
 
-        </div>
+            <!-- Right Side -->
+            <div class="d-lg-flex align-items-center gap-3 mt-3 mt-lg-0 text-center">
 
-        <!-- Right Section -->
-        <div class="d-flex align-items-center gap-3">
+                <!-- Cart -->
+                <div class="position-relative mx-auto mx-lg-0">
+                    <i class="fa-solid fa-cart-shopping text-white fs-4"></i>
+                    <span class="badge cart-badge">3</span>
+                </div>
 
-            <!-- Cart with badge -->
-            <div class="position-relative">
-                <i class="fa-solid fa-cart-shopping text-white fs-4"></i>
-                <span class="badge cart-badge">3</span>
-            </div>
+                <!-- User + Dropdown -->
+                <div class="dropdown">
+                    <div class="d-flex align-items-center gap-2 justify-content-center" data-bs-toggle="dropdown">
+                        <img src="assets/images/bgmain2.png" class="profileImage" alt="User">
+                        <span class="text-white fw-semibold">{{ userName() }}</span>
+                    </div>
 
-            <!-- User Info -->
-            <div class="d-flex align-items-center gap-2">
-                <img class="profileImage" src="assets/images/bgmain2.png" alt="">
-                <span class="text-white fw-semibold">{{userName()}}</span>
+                    <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="assets/images/bgmain2.png" class="profile-img me-3" />
+
+                            <div>
+                                <h5 class="mb-0 fw-bold">{{ userName() }}</h5>
+
+                            </div>
+                            <i routerLink="/layout/user-profile" class="fa-solid fa-gear ms-auto text-primary"></i>
+                        </div>
+
+                        <hr>
+
+                        <a routerLink="" class="dropdown-item custom-item">
+                            <i class="fa-solid fa-wallet me-2"></i> Payment Method
+                            <i class="fa-solid fa-chevron-right ms-auto"></i>
+                        </a>
+
+                        <a routerLink="/layout/favorite" class="dropdown-item custom-item">
+                            <i class="fa-regular fa-heart me-2"></i> Favorite
+                            <i class="fa-solid fa-chevron-right ms-auto"></i>
+                        </a>
+
+                        <a routerLink="/layout/user-profile" class="dropdown-item custom-item">
+                            <i class="fa-solid fa-gear me-2"></i> Settings
+                            <i class="fa-solid fa-chevron-right ms-auto"></i>
+                        </a>
+                        <hr>
+
+                        <a (click)="logout()" class="dropdown-item logout-item text-danger fw-semibold cursorPointer">
+                            <i class="fa-solid fa-right-from-bracket me-2 "></i> Log out
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
         </div>
