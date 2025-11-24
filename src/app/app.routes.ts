@@ -22,6 +22,20 @@ export const routes: Routes = [
             (c) => c.HomeComponent
           ),
       },
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./features/components/categories/categories.component').then(
+            (c) => c.CategoriesComponent
+          ),
+      },
+      {
+        path: 'favorite',
+        loadComponent: () =>
+          import('./features/components/favorite/favorite.component').then(
+            (c) => c.FavoriteComponent
+          ),
+      },
     ],
   },
 ];

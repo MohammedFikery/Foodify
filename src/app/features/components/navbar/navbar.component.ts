@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -9,4 +9,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {}
+export class NavbarComponent implements OnInit {
+  id = inject(PLATFORM_ID);
+  userName = signal<string>('User');
+
+  ngOnInit(): void {
+    this.getUserDataFromLocalStorage();
+  }
+
+  getUserDataFromLocalStorage(): void {
+    if (isPlatformBrowser(this.id)) {
+      this.userName.set(localStorage.getItem('userFull_name') ?? 'User');
+    }
+  }
+}

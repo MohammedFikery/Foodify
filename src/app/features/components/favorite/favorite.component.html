@@ -1,28 +1,8 @@
 <div class="container py-4 pt-5">
 
-    <section>
-        <div class="container py-4">
-            <owl-carousel-o [options]="carouselOptions" class="owl-theme">
-
-                @for (d of categories(); track $index) {
-                <ng-template carouselSlide>
-                    <div class="category-card">
-                        <img [src]="d.image ? d.image : 'assets/images/NoImage.jpeg'" alt="Balanced Meals"
-                            class="category-img" />
-                        <h6 class="fw-semibold text-center py-2">{{ d.name }}</h6>
-                    </div>
-                </ng-template>
-                }
-
-            </owl-carousel-o>
-        </div>
-    </section>
-
-    <h2 class="pb-5">Chef’s Recommendations</h2>
-
     <div class="row g-5">
 
-        <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of foods()">
+        <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of Favorite()">
 
             <div class="food-card">
 

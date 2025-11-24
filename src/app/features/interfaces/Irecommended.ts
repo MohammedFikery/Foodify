@@ -1,3 +1,5 @@
+import { Signal } from '@angular/core';
+
 export interface Irecommended {
   id: number;
   name: string;
@@ -9,4 +11,5 @@ export interface Irecommended {
   rating: number;
   image: string;
   category: string;
+  quantity: Signal<number>;
 }
