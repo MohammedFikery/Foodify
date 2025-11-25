@@ -40,9 +40,9 @@
             <div class="d-lg-flex align-items-center gap-3 mt-3 mt-lg-0 text-center">
 
                 <!-- Cart -->
-                <div class="position-relative mx-auto mx-lg-0">
+                <div routerLink="/layout/Cart" class="position-relative mx-auto mx-lg-0 cursorPointer">
                     <i class="fa-solid fa-cart-shopping text-white fs-4"></i>
-                    <span class="badge cart-badge">3</span>
+                    <span class="badge cart-badge">{{ totalItems() }}</span>
                 </div>
 
                 <!-- User + Dropdown -->

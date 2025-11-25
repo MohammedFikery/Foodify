@@ -45,6 +45,13 @@ export const routes: Routes = [
             (c) => c.DashesComponent
           ),
       },
+      {
+        path: 'Cart',
+        loadComponent: () =>
+          import('./features/components/cart/cart.component').then(
+            (c) => c.CartComponent
+          ),
+      },
     ],
   },
 ];
