@@ -12,6 +12,7 @@ export class SharedService {
   private readonly _HttpClient = inject(HttpClient);
   private readonly _ToastrService = inject(ToastrService);
   total_items = signal<number>(0);
+  total_price = signal<number>(0);
   //#region Ajax
 
   categories(searchValue: string): Observable<ICategories[]> {
@@ -39,6 +40,11 @@ export class SharedService {
   myCart(): Observable<MyCart> {
     return this._HttpClient.get<MyCart>(`/api/cart`);
   }
+  updateCartQuantity(id: number, quantity: number): Observable<any> {
+    return this._HttpClient.post(`/api/cart/${id}/update-quantity`, {
+      quantity: quantity,
+    });
+  }
 
   //#endregion
 
@@ -47,6 +53,8 @@ export class SharedService {
     this.addToCartApi(id, data).subscribe({
       next: (res: any) => {
         this._ToastrService.success(res.message);
+        this.total_items.set(res.total_items);
+        this.total_price.set(res.total_price);
       },
     });
   }

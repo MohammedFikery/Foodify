@@ -84,3 +84,30 @@
     background: #f2f2f2;
   }
 }
+/* ===============================
+   Quantity Counter
+=============================== */
+.qty-counter {
+  background: #f3f3f3;
+  padding: 2px;
+  min-width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.qty-btn {
+  padding: 4px 8px;
+  font-size: 18px;
+  background: #ddd;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.qty-value {
+  font-size: 16px;
+  font-weight: 600;
+}
