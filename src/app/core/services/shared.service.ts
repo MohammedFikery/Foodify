@@ -13,6 +13,7 @@ export class SharedService {
   private readonly _ToastrService = inject(ToastrService);
   total_items = signal<number>(0);
   total_price = signal<number>(0);
+
   //#region Ajax
 
   categories(searchValue: string): Observable<ICategories[]> {
@@ -36,6 +37,9 @@ export class SharedService {
     return this._HttpClient.get(
       `/api/categories/${Catid}/dishes?search=${searchValue}`
     );
+  }
+  dashesDetails(dashId: number): Observable<any> {
+    return this._HttpClient.get(`/api/dishes/4{dashesDetails}`);
   }
   myCart(): Observable<MyCart> {
     return this._HttpClient.get<MyCart>(`/api/cart`);

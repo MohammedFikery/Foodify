@@ -1,0 +1,90 @@
+<div class="container py-5">
+
+    <div class="row g-4">
+
+        <!-- LEFT SIDE — USER INFO -->
+        <div class="col-lg-4">
+
+            <div class="profile-card shadow-lg rounded-4 p-4">
+
+                <div class="text-center mb-3">
+                    <i class="fa-solid fa-circle-user text-success" style="font-size: 80px;"></i>
+                </div>
+
+                <h4 class="text-center fw-bold">{{ profile()?.full_name || '-' }}</h4>
+                <p class="text-center text-muted">{{ profile()?.email }}</p>
+
+                <hr />
+
+                <div class="info-item mb-3">
+                    <label class="fw-semibold text-secondary">Phone</label>
+                    <div>{{ profile()?.phone || '-' }}</div>
+                </div>
+
+                <div class="info-item mb-3">
+                    <label class="fw-semibold text-secondary">Birthday</label>
+                    <div>{{ profile()?.birthday || '-' }}</div>
+                </div>
+
+                <div class="info-item mb-3">
+                    <label class="fw-semibold text-secondary">Address</label>
+                    <div>{{ profile()?.address || '-' }}</div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <span class="badge bg-success" *ngIf="updated()">Updated Successfully</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE — UPDATE FORM -->
+        <div class="col-lg-8">
+
+            <div class="shadow-sm rounded-4 p-4">
+
+                <h3 class="fw-bold mb-4">Edit Profile</h3>
+
+                <form [formGroup]="profileForm" (ngSubmit)="submitForm()" class="row g-3">
+
+                    <!-- Full Name -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Full Name</label>
+                        <input class="form-control" formControlName="full_name" placeholder="Enter your name" />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input class="form-control" formControlName="email" placeholder="Enter your email" />
+                    </div>
+
+                    <!-- Birthday -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Birthday</label>
+                        <input type="date" class="form-control" formControlName="birthday" />
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Address</label>
+                        <input class="form-control" formControlName="address" placeholder="Your address" />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12 mt-3">
+                        <button class="btn btn-success w-100 py-2 fs-5" [disabled]="profileForm.invalid || isLoading()">
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

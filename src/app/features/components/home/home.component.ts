@@ -5,7 +5,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HomeService } from '../../services/home.service';
 import { SharedService } from '../../../core/services/shared.service';
 import { Irecommended } from '../../interfaces/Irecommended';
-import { AuthRoutingModule } from "../../../auth/auth-routing.module";
+import { AuthRoutingModule } from '../../../auth/auth-routing.module';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   foods = signal<Irecommended[]>([]);
   categories = signal<any>([]);
   searchValue = signal<string>('');
+  itemDetailes = signal<any>(null);
 
   carouselOptions: OwlOptions = {
     loop: true,
@@ -63,7 +64,13 @@ export class HomeComponent implements OnInit {
       },
     });
   }
-
+  gitDashesDetails(id: any): void {
+    this.sharedService.dashesDetails(id).subscribe({
+      next: (res) => {
+        this.itemDetailes.set(res.data);
+      },
+    });
+  }
   getCategories() {
     this.sharedService.categories(this.searchValue()).subscribe({
       next: (res: any) => this.categories.set(res.data),
@@ -91,7 +98,7 @@ export class HomeComponent implements OnInit {
     this.sharedService.addToCart(item.id, { quantity: item.quantity() });
   }
 
-  ToggleFavorites(id: number) {
+  ToggleFavorites(id: any) {
     this.sharedService.ToggleFavorites(id);
   }
 

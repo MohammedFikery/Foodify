@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <!-- Logo -->
-        <a class="navbar-brand d-flex align-items-center ps-5" routerLink="">
+        <a class="navbar-brand d-flex align-items-center ps-5" routerLink="/layout/home">
             <img src="assets/images/Logo.svg" class="logo" alt="Foodify">
         </a>
 
@@ -48,24 +48,24 @@
                 <!-- User + Dropdown -->
                 <div class="dropdown">
                     <div class="d-flex align-items-center gap-2 justify-content-center" data-bs-toggle="dropdown">
-                        <img src="assets/images/bgmain2.png" class="profileImage" alt="User">
+                        <img src="assets/images/UserImage.png" class="profileImage" alt="User">
                         <span class="text-white fw-semibold">{{ userName() }}</span>
                     </div>
 
-                    <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="assets/images/bgmain2.png" class="profile-img me-3" />
+                    <div class="dropdown-menu dropdown-menu-end custom-dropdown-menu p-3 cursorPointer">
+                        <div routerLink="/layout/profile" class="d-flex align-items-center mb-3">
+                            <img src="assets/images/UserImage.png" class="profile-img me-3" />
 
                             <div>
                                 <h5 class="mb-0 fw-bold">{{ userName() }}</h5>
 
                             </div>
-                            <i routerLink="/layout/user-profile" class="fa-solid fa-gear ms-auto text-primary"></i>
+                            <i class="fa-solid fa-gear ms-auto text-success "></i>
                         </div>
 
                         <hr>
 
-                        <a routerLink="" class="dropdown-item custom-item">
+                        <a routerLink="/layout/Payment" class="dropdown-item custom-item">
                             <i class="fa-solid fa-wallet me-2"></i> Payment Method
                             <i class="fa-solid fa-chevron-right ms-auto"></i>
                         </a>
@@ -75,8 +75,8 @@
                             <i class="fa-solid fa-chevron-right ms-auto"></i>
                         </a>
 
-                        <a routerLink="/layout/user-profile" class="dropdown-item custom-item">
-                            <i class="fa-solid fa-gear me-2"></i> Settings
+                        <a routerLink="/auth/resetPassword" class="dropdown-item custom-item">
+                            <i class="fa-solid fa-gear me-2"></i> Reset Password
                             <i class="fa-solid fa-chevron-right ms-auto"></i>
                         </a>
                         <hr>

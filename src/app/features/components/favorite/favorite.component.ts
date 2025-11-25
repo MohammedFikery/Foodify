@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { SharedService } from '../../../core/services/shared.service';
 import { FormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-favorite',
   standalone: true,
@@ -22,6 +21,10 @@ export class FavoriteComponent implements OnInit {
   private readonly _SharedService = inject(SharedService);
   id = inject(PLATFORM_ID);
   Favorite = signal<any>([]);
+  selectedItem = signal<any>(null);
+  isModalOpen = signal(false);
+  itemDetailes = signal<any>(null);
+
   getFavorite() {
     this._SharedService.myFavorite().subscribe({
       next: (res: any) => {
@@ -30,6 +33,13 @@ export class FavoriteComponent implements OnInit {
           quantity: signal(1),
         }));
         this.Favorite.set(data);
+      },
+    });
+  }
+  gitDashesDetails(id: number): void {
+    this._SharedService.dashesDetails(id).subscribe({
+      next: (res) => {
+        this.itemDetailes.set(res.data);
       },
     });
   }

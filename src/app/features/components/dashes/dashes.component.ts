@@ -12,8 +12,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashes.component.scss',
 })
 export class DashesComponent implements OnInit {
+  
   private readonly _SharedService = inject(SharedService);
   private readonly _ActivatedRoute = inject(ActivatedRoute);
+
   id = inject(PLATFORM_ID);
   dashes = signal<any>([]);
   CatId = signal<string | null>('');

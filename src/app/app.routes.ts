@@ -52,6 +52,27 @@ export const routes: Routes = [
             (c) => c.CartComponent
           ),
       },
+      {
+        path: 'Payment',
+        loadComponent: () =>
+          import(
+            './features/components/payment-methods/payment-methods.component'
+          ).then((c) => c.PaymentMethodsComponent),
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./features/components/profile/profile.component').then(
+            (c) => c.ProfileComponent
+          ),
+      },
+      {
+        path: 'cheekOut',
+        loadComponent: () =>
+          import('./features/components/checkout/checkout.component').then(
+            (c) => c.CheckoutComponent
+          ),
+      },
     ],
   },
 ];

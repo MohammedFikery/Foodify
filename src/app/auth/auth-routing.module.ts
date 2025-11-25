@@ -30,11 +30,6 @@ const routes: Routes = [
         title: 'EnterOtp',
       },
       {
-        path: 'forgetpassword',
-        component: ForgetPasswordComponent,
-        title: 'forgetPassword',
-      },
-      {
         path: 'resetPassword',
         component: NewPasswordComponent,
         title: 'resetPassword',

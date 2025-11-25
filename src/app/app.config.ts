@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import {
   provideRouter,
   withInMemoryScrolling,
@@ -19,6 +19,7 @@ import { errorInterceptor } from './core/interceptor/error.interceptor';
 
 // Add this import 👇
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { NgxStripeModule } from 'ngx-stripe';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,5 +40,8 @@ export const appConfig: ApplicationConfig = {
     ),
     provideToastr(),
     provideAnimations(),
+    importProvidersFrom(
+      NgxStripeModule.forRoot('pk_test_xxxxxxxxxxxxxxxxxxxxx')
+    ),
   ],
 };

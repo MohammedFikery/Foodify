@@ -1,51 +1,64 @@
 <div class="container py-4 pt-5">
     <div class="row g-5 mt-1">
+
         <!-- No Data Found Message -->
         <div *ngIf="Favorite().length === 0" class="no-data-box">
             <h3>No Data Found</h3>
         </div>
+
         <div class="col-lg-4 col-md-6 col-12" *ngFor="let item of Favorite()">
 
             <div class="food-card">
-
                 <div class="image-container">
-                    <img [src]="item.image ? item.image : 'assets/images/NoImage.jpeg'" alt="Balanced Meals" />
+                    <img [src]="item?.image || 'assets/images/NoImage.jpeg'" alt="Balanced Meals" />
                 </div>
 
-                <h4 class="title">{{ item.name }}</h4>
-                <p class="desc">{{ item.description }}</p>
+                <h4 class="title">
+                    {{ (item?.name || '') | slice:0:20 }}
+                    {{ (item?.name || '').length > 20 ? '...' : '' }}
+                </h4>
+                <p class="desc">
+                    {{ (item?.description || '') | slice:0:40 }}
+                    {{ (item?.description || '').length > 40 ? '...' : '' }}
+                </p>
 
-                <h5 class="price">{{ item.price }} <span>EGP</span></h5>
+                <h5 class="price">{{ item?.price || 0 }} <span>EGP</span></h5>
 
                 <div class="bottom-row d-flex justify-content-between align-items-center mt-2">
                     <div class="rating">
-                        <i class="fa-solid fa-star" *ngFor="let s of getStars(item.rating)"></i>
-                        <i class="fa-regular fa-star" *ngFor="let s of getEmptyStars(item.rating)"></i>
+                        <i class="fa-solid fa-star" *ngFor="let s of getStars(item?.rating || 0)"></i>
+                        <i class="fa-regular fa-star" *ngFor="let s of getEmptyStars(item?.rating || 0)"></i>
                     </div>
 
                     <div class="macros d-flex align-items-center gap-2">
                         <i class="fa-solid fa-fire-flame-curved kcal-icon"></i>
-                        <span>{{ item.kcal }} kcal • {{ item.protein }}</span>
+                        <span>{{ item?.kcal || 0 }} kcal • {{ item?.protein || 0 }}</span>
                     </div>
                 </div>
 
                 <div class="actions d-flex align-items-center justify-content-between mt-3">
-
                     <div>
                         <div class="qty-counter d-flex align-items-center gap-2">
                             <button class="qty-btn" (click)="decreaseQty(item)">−</button>
-                            <span class="qty-value">{{ item.quantity() }}</span>
+                            <span class="qty-value">{{ item?.quantity ? item.quantity() : 1 }}</span>
                             <button class="qty-btn" (click)="increaseQty(item)">+</button>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-2">
 
-                        <button (click)="ToggleFavorites(item.id)" class="fav-btn">
+                        <button (click)="ToggleFavorites(item?.id)" class="fav-btn">
                             <i class="fa-regular fa-heart"></i>
                         </button>
-                        <button (click)="addProductToCart(item)" class="add-btn">Add To Cart</button>
-                    </div>
 
+                        <button (click)="gitDashesDetails(item?.id)" class="fav-btn" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+
+                        <button (click)="addProductToCart(item)" class="add-btn">
+                            Add To Cart
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -53,5 +66,52 @@
         </div>
 
     </div>
+</div>
 
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header mb-1">
+                <h1 class="modal-title fs-5">
+                    {{ itemDetailes()?.name || 'Loading...' }}
+                </h1>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="food-card" *ngIf="itemDetailes(); else loadingTpl">
+                    <div class="image-container">
+                        <img [src]="itemDetailes()?.image || 'assets/images/NoImage.jpeg'" alt="Dish Image" />
+                    </div>
+                    <p class="desc">{{ itemDetailes()?.description || '-' }}</p>
+
+                    <h5 class="price">{{ itemDetailes()?.price || 0 }} <span>EGP</span></h5>
+
+                    <div class="bottom-row d-flex justify-content-between align-items-center mt-2">
+                        <div class="rating">
+                            <i class="fa-solid fa-star" *ngFor="let s of getStars(itemDetailes()?.rating || 0)"></i>
+                            <i class="fa-regular fa-star"
+                                *ngFor="let s of getEmptyStars(itemDetailes()?.rating || 0)"></i>
+                        </div>
+
+                        <div class="macros d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-fire-flame-curved kcal-icon"></i>
+                            <span>{{ itemDetailes()?.kcal || 0 }} kcal • {{ itemDetailes()?.protein || '-' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Template Loading -->
+                <ng-template #loadingTpl>
+                    <p class="text-center py-4">Loading...</p>
+                </ng-template>
+
+            </div>
+        </div>
+    </div>
 </div>

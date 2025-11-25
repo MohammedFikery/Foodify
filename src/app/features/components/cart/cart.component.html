@@ -1,54 +1,75 @@
-<div class="container py-5 ">
+<div class="container py-5">
 
     <div class="row">
 
-        <!-- LEFT (CART ITEMS) 75% -->
-        <div class="col-lg-9 col-md-8 col-12 ">
+        <!-- LEFT (CART ITEMS) -->
+        <div class="col-lg-9 col-md-8 col-12">
 
+            <!-- EMPTY CART -->
             <div *ngIf="cartItems().length === 0" class="text-center py-5">
                 <h3 class="text-muted">Your cart is empty</h3>
             </div>
 
+            <!-- CART LIST -->
             <div class="row g-4" *ngIf="cartItems().length > 0">
 
                 <div class="col-12" *ngFor="let item of cartItems()">
 
                     <div class="food-card shadow-sm p-3 d-flex gap-3">
 
-                        <!-- IMAGE (25% WIDTH) -->
+                        <!-- IMAGE -->
                         <div class="image-container">
-                            <img [src]="item.image || 'assets/images/NoImage.jpeg'" alt="{{ item.name }}" />
+                            <img [src]="item?.image || 'assets/images/NoImage.jpeg'"
+                                alt="{{ item?.name || 'Product Image' }}" />
                         </div>
 
-                        <!-- DETAILS (75%) -->
+                        <!-- DETAILS -->
                         <div class="flex-grow-1">
 
-                            <!-- NAME + TRASH ICON -->
+                            <!-- NAME + TRASH -->
                             <div class="title-row d-flex justify-content-between align-items-center">
-                                <h4 class="title">{{ item.name }}</h4>
 
-                                <!-- TRASH ICON -->
+                                <h4 class="title">
+                                    {{ item?.name || '-' }}
+                                </h4>
+
                                 <i class="fa-solid fa-trash trash-icon" (click)="RemoveProductFromCart(item.id)">
                                 </i>
+
                             </div>
 
-                            <h5 class="price">{{ item.price }} <span>EGP</span></h5>
+                            <h5 class="price">
+                                {{ item?.price || 0 }} <span>EGP</span>
+                            </h5>
 
                             <div class="macros d-flex align-items-center gap-2 mt-2">
                                 <i class="fa-solid fa-fire-flame-curved kcal-icon"></i>
-                                <span>{{ item.kcal }} kcal</span>
+                                <span>{{ item?.kcal || 0 }} kcal</span>
                             </div>
 
+                            <!-- QUANTITY BOX -->
                             <div
                                 class="quantity-box mt-3 p-2 rounded d-flex justify-content-between align-items-center">
+
                                 <div>
                                     <div class="qty-counter d-flex align-items-center gap-2">
+
                                         <button class="qty-btn" (click)="decreaseQty(item)">−</button>
-                                        <span class="qty-value">{{ item.quantity }}</span>
+
+                                        <span class="qty-value">
+                                            {{ item?.quantity || 1 }}
+                                        </span>
+
                                         <button class="qty-btn" (click)="increaseQty(item)">+</button>
+
                                     </div>
                                 </div>
-                                <span class="fw-bold">Subtotal: {{ item.subtotal }} EGP</span>
+
+                                <span class="fw-bold">
+                                    Subtotal:
+                                    {{ item?.subtotal || 0 }} EGP
+                                </span>
+
                             </div>
 
                         </div>
@@ -61,19 +82,29 @@
 
         </div>
 
-        <!-- RIGHT (SUMMARY) 25% -->
-        <div class="col-lg-3 col-md-4 col-12 ">
+        <!-- RIGHT (SUMMARY) -->
+        <div class="col-lg-3 col-md-4 col-12">
 
-            <div class="summary-box shadow-lg p-4  sticky-top">
+            <div class="summary-box shadow-lg p-4 sticky-top">
+
                 <h3 class="fw-bold mb-3">Order Summary</h3>
 
-                <p class="m-0"><strong>Total Items:</strong> {{ cartSummary()?.total_items }}</p>
-                <p class="m-0"><strong>Total Price:</strong> {{ total_price()| number:'1.2-2' }} EGP</p>
+                <p class="m-0">
+                    <strong>Total Items:</strong>
+                    {{ cartSummary()?.total_items || 0 }}
+                </p>
 
-                <button class="checkout-btn mt-4 w-100">Checkout</button>
+                <p class="m-0">
+                    <strong>Total Price:</strong>
+                    {{ total_price() || 0 | number:'1.2-2' }} EGP
+                </p>
+
+                <button routerLink="/layout/cheekOut" class="checkout-btn mt-4 w-100">Checkout</button>
+
             </div>
 
         </div>
 
     </div>
+
 </div>

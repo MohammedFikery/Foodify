@@ -1,0 +1,24 @@
+.payment-card {
+  border-radius: 20px;
+  background-color: #fff;
+  transition: 0.25s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.payment-form {
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+}
+
+.badge.bg-success {
+  border-radius: 999px;
+}

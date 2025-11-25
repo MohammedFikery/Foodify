@@ -1,0 +1,143 @@
+<div class="container py-4 pt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Payment Methods</h2>
+
+        <div *ngIf="isLoading()" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+    </div>
+
+    <!-- ================= Existing Methods ================ -->
+    <div class="row g-4 mb-5">
+
+        <div *ngIf="methods().length === 0" class="text-center text-muted py-4">
+            <h4>No payment methods added yet</h4>
+            <p class="mb-0">Add your first payment method below.</p>
+        </div>
+
+        <div class="col-md-6 col-lg-4" *ngFor="let m of methods()">
+
+            <div class="payment-card shadow-sm p-3 rounded-4">
+
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <i [class]="getTypeIcon(m?.['type'])" class="me-1 fs-3"></i>
+                        <div>
+                            <h5 class="fw-bold mb-0">{{ m?.['name'] || '-' }}</h5>
+                            <small class="text-muted">{{ m?.['type'] | titlecase }}</small>
+                        </div>
+                    </div>
+
+                    <span class="badge bg-success" *ngIf="m?.['is_default']">Default</span>
+                </div>
+
+                <p class="m-0 text-muted">
+                    {{ getMaskedDetails(m?.['details']) }}
+                </p>
+
+                <p class="m-0 text-muted">
+                    Expire:
+                    <span class="fw-semibold">{{ m?.['expire_date'] || '-' }}</span>
+                </p>
+
+                <div class="mt-3 d-flex justify-content-between">
+
+                    <button class="btn btn-outline-success btn-sm" *ngIf="!m?.['is_default']"
+                        (click)="setDefault(m?.['id'])">
+                        Set as Default
+                    </button>
+
+                    <span *ngIf="m?.['is_default']" class="text-success small align-self-center">
+                        Currently used as default
+                    </span>
+
+                    <button class="btn btn-outline-danger btn-sm" (click)="deleteMethod(m?.['id'])">
+                        <i class="fa-solid fa-trash me-1"></i>
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= Add New Method ================ -->
+
+    <h3 class="fw-bold mb-3">Add Payment Method</h3>
+
+    <form class="payment-form shadow-sm p-4 rounded-4" [formGroup]="paymentForm" (ngSubmit)="submitForm()">
+
+        <div class="row g-3">
+
+            <!-- Type -->
+            <div class="col-md-6">
+                <label class="form-label">Type</label>
+                <select class="form-control" formControlName="type">
+                    <option value="" disabled>Select type</option>
+                    <option value="visa">Visa</option>
+                    <option value="mastercard">MasterCard</option>
+                    <option value="cart">Cart</option>
+                    <option value="wallet">Wallet</option>
+                </select>
+                <!-- <small class="text-danger" *ngIf="f.type.touched && f.type.invalid">
+                    Type is required
+                </small> -->
+            </div>
+
+            <!-- Name -->
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input class="form-control" formControlName="name" placeholder="Ex: Personal Visa" />
+                <!-- <small class="text-danger" *ngIf="f.name.touched && f.name.invalid">
+                    Name is required (min 3 chars)
+                </small> -->
+            </div>
+
+            <!-- Details -->
+            <div class="col-md-6">
+                <label class="form-label">Card Number / Details</label>
+                <input class="form-control" formControlName="details" placeholder="4444 4444 4444 4444" />
+                <!-- <small class="text-danger" *ngIf="f.details.touched && f.details.invalid">
+                    Details are required (min 8 chars)
+                </small> -->
+            </div>
+
+            <!-- CSV -->
+            <div class="col-md-3">
+                <label class="form-label">CSV</label>
+                <input class="form-control" formControlName="csv" maxlength="4" placeholder="123" />
+            </div>
+
+            <!-- Expire Date -->
+            <div class="col-md-3">
+                <label class="form-label">Expire Date</label>
+                <input type="date" class="form-control" formControlName="expire_date" />
+                <!-- <small class="text-danger" *ngIf="f.expire_date.touched && f.expire_date.invalid">
+                    Expire date is required
+                </small> -->
+            </div>
+
+            <!-- Default -->
+            <div class="col-12">
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input" formControlName="is_default" id="is_default" />
+                    <label class="form-check-label" for="is_default">
+                        Set as default
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="col-12 mt-3">
+                <button class="btn btn-success w-100 py-2 fs-5" type="submit"
+                    [disabled]="paymentForm.invalid || isLoading()">
+                    Add Method
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
