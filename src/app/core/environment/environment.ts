@@ -1,3 +1,3 @@
 export const environment = {
-  ServerUrl: 'http://foody.huma-volve.com',
+  ServerUrl: 'https://foody.huma-volve.com',
 };
