@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
@@ -16,7 +17,7 @@ export class CheckoutComponent implements OnInit {
   private readonly payService = inject(PaymentService);
   private readonly SharedService = inject(SharedService);
   private readonly ToastrService = inject(ToastrService);
-
+  private readonly Router = inject(Router);
   methods = signal<IPaymentMethod[]>([]);
   selected = signal<IPaymentMethod | null>(null);
   loading = signal<boolean>(false);
@@ -79,6 +80,7 @@ export class CheckoutComponent implements OnInit {
       next: () => {
         this.loading.set(false);
         this.ToastrService.success('Payment Completed Successfully');
+        this.Router.navigate(['/layout/home']);
       },
       error: () => this.loading.set(false),
     });
