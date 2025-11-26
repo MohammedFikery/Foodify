@@ -81,6 +81,7 @@ export class CheckoutComponent implements OnInit {
         this.loading.set(false);
         this.ToastrService.success('Payment Completed Successfully');
         this.Router.navigate(['/layout/home']);
+        this.SharedService.total_items.set(0);
       },
       error: () => this.loading.set(false),
     });
