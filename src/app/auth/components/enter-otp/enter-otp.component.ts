@@ -1,8 +1,9 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   AfterViewInit,
   Component,
   inject,
+  input,
   OnDestroy,
   OnInit,
   signal,
@@ -16,14 +17,16 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './enter-otp.component.html',
   styleUrl: './enter-otp.component.scss',
 })
-export class EnterOtpComponent {
+export class EnterOtpComponent implements OnInit {
   private readonly _AuthService = inject(AuthService);
   private readonly _ToastrService = inject(ToastrService);
   private readonly Router = inject(Router);
+  private readonly _ActivatedRoute = inject(ActivatedRoute);
 
+  form = input<string>('');
   otp = ['', '', '', ''];
   verifyDisabled = signal(true);
-
+  FormID = signal<string | null>('1');
   onOtpInput(event: any, index: number) {
     const value = event.target.value.replace(/\D/g, '').slice(0, 1);
     this.otp[index] = value;
@@ -55,8 +58,17 @@ export class EnterOtpComponent {
       next: (res) => {
         console.log(res.message);
         this._ToastrService.success(res.message, 'successfully');
-        this.Router.navigate(['/auth/login']);
+        if (this.FormID() === '1') {
+          this.Router.navigate(['/auth/resetPassword']);
+        } else {
+          this.Router.navigate(['/auth/login']);
+        }
       },
+    });
+  }
+  ngOnInit(): void {
+    this._ActivatedRoute.paramMap.subscribe((params) => {
+      this.FormID.set(params.get('id'));
     });
   }
 }

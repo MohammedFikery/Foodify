@@ -35,7 +35,7 @@ export class ForgetPasswordComponent {
         this._ToastrService.success(res.message, ' successfully');
         this._AuthService.phoneNumber.set(ForgetPassword.value.phone);
         this._AuthService.otp.set('1234');
-        this.Router.navigate(['/auth/otp']);
+        this.Router.navigate(['/auth/otp', '1']);
       },
     });
   }

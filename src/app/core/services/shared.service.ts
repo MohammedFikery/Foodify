@@ -39,7 +39,7 @@ export class SharedService {
     );
   }
   dashesDetails(dashId: number): Observable<any> {
-    return this._HttpClient.get(`/api/dishes/4{dashesDetails}`);
+    return this._HttpClient.get(`/api/dishes/${dashId}`);
   }
   myCart(): Observable<MyCart> {
     return this._HttpClient.get<MyCart>(`/api/cart`);
@@ -65,13 +65,16 @@ export class SharedService {
   RemoveFromCart(id: number): Observable<any> {
     return this.removeCartApi(id);
   }
-
-  ToggleFavorites(id: number) {
-    this.ToggleFavoritesApi(id).subscribe({
-      next: (res: any) => {
-        this._ToastrService.success(res.message);
-      },
-    });
+  ToggleFavorites(id: number): Observable<any> {
+    return this.ToggleFavoritesApi(id);
   }
+
+  // ToggleFavorites(id: number) {
+  //   this.ToggleFavoritesApi(id).subscribe({
+  //     next: (res: any) => {
+  //       this._ToastrService.success(res.message);
+  //     },
+  //   });
+  // }
   //#endregion
 }

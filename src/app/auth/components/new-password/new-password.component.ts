@@ -7,6 +7,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-password',
@@ -17,6 +18,8 @@ import { AuthService } from '../../services/auth.service';
 export class NewPasswordComponent {
   private readonly _AuthService = inject(AuthService);
   private readonly Router = inject(Router);
+  private readonly _ToastrService = inject(ToastrService);
+
   hide = signal(true);
 
   createAccountForm: FormGroup = new FormGroup(
@@ -42,7 +45,7 @@ export class NewPasswordComponent {
     );
     this._AuthService.resetPassword(formData).subscribe({
       next: (res) => {
-        console.log(res);
+        this._ToastrService.success(res.message);
         this.Router.navigate(['/auth/login']);
       },
     });

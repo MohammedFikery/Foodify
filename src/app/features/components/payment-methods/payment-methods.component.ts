@@ -34,7 +34,15 @@ export class PaymentMethodsComponent implements OnInit {
     this.paymentForm = this._fb.group({
       type: ['', Validators.required],
       name: ['', [Validators.required, Validators.minLength(3)]],
-      details: ['', [Validators.required, Validators.minLength(8)]],
+      details: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16),
+          Validators.pattern('^[0-9]+$'),
+        ],
+      ],
       csv: ['', [Validators.maxLength(4)]],
       expire_date: ['', Validators.required],
       is_default: [false],
@@ -142,6 +150,6 @@ export class PaymentMethodsComponent implements OnInit {
   }
   fieldHasError(field: string, error: string) {
     const control = this.paymentForm.get(field);
-    return control?.hasError(error) && control?.touched;
+    return control?.hasError(error) && (control?.dirty || control?.touched);
   }
 }

@@ -25,7 +25,7 @@ const routes: Routes = [
         title: 'ForgetPassword',
       },
       {
-        path: 'otp',
+        path: 'otp/:id',
         component: EnterOtpComponent,
         title: 'EnterOtp',
       },

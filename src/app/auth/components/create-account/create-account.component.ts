@@ -51,7 +51,7 @@ export class CreateAccountComponent {
       next: (res) => {
         this._ToastrService.success(res.message, 'successfully');
         this._AuthService.phoneNumber.set(createAccountForm.value.phone);
-        this.Router.navigate(['/auth/otp']);
+        this.Router.navigate(['/auth/otp', '2']);
       },
     });
   }

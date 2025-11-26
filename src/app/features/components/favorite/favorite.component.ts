@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class FavoriteComponent implements OnInit {
   private readonly _SharedService = inject(SharedService);
+  private readonly _ToastrService = inject(ToastrService);
   id = inject(PLATFORM_ID);
   Favorite = signal<any>([]);
   selectedItem = signal<any>(null);
@@ -59,9 +61,14 @@ export class FavoriteComponent implements OnInit {
     item.quantity.update((q: number) => (q > 1 ? q - 1 : q));
   }
   ToggleFavorites(id: number) {
-    this._SharedService.ToggleFavorites(id);
-    this.getFavorite();
+    this._SharedService.ToggleFavorites(id).subscribe({
+      next: (res: any) => {
+        this._ToastrService.success(res.message);
+        this.getFavorite();
+      },
+    });
   }
+
   addProductToCart(item: any) {
     const payload = {
       quantity: item.quantity(),

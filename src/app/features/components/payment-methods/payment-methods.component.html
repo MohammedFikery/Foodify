@@ -104,13 +104,23 @@
                 <label class="form-label">Card Number / Details</label>
                 <input class="form-control" formControlName="details" placeholder="4444 4444 4444 4444" />
 
-                @if(fieldHasError('details','required')){
+                @if (fieldHasError('details','required')) {
                 <span class="error">Card details are required</span>
                 }
-                @if(fieldHasError('details','minlength')){
-                <span class="error">Card details must be at least 8 characters</span>
+
+                @if (fieldHasError('details','minlength')) {
+                <span class="error">Card details must be at least 8 digits</span>
+                }
+
+                @if (fieldHasError('details','maxlength')) {
+                <span class="error">Card details must not exceed 16 digits</span>
+                }
+
+                @if (fieldHasError('details','pattern')) {
+                <span class="error">Card details must contain numbers only</span>
                 }
             </div>
+
 
             <!-- CSV -->
             <div class="col-md-3">

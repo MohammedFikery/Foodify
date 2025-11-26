@@ -6,18 +6,20 @@ import { HomeService } from '../../services/home.service';
 import { SharedService } from '../../../core/services/shared.service';
 import { Irecommended } from '../../interfaces/Irecommended';
 import { AuthRoutingModule } from '../../../auth/auth-routing.module';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, CarouselModule, AuthRoutingModule],
-  templateUrl: './home.component.html',
+  templateUrl:'./home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly homeService = inject(HomeService);
   private readonly sharedService = inject(SharedService);
+  private readonly _ToastrService = inject(ToastrService);
 
   foods = signal<Irecommended[]>([]);
   categories = signal<any>([]);
@@ -98,8 +100,12 @@ export class HomeComponent implements OnInit {
     this.sharedService.addToCart(item.id, { quantity: item.quantity() });
   }
 
-  ToggleFavorites(id: any) {
-    this.sharedService.ToggleFavorites(id);
+  ToggleFavorites(id: number) {
+    this.sharedService.ToggleFavorites(id).subscribe({
+      next: (res: any) => {
+        this._ToastrService.success(res.message);
+      },
+    });
   }
 
   ngOnInit(): void {
