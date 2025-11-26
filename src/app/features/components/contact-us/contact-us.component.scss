@@ -1,0 +1,18 @@
+/* Custom CSS for the component */
+.contact-title {
+  /* Assuming a custom serif font for the title, similar to the image */
+  font-family: Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #0d1a3c; /* Dark blue similar to the text color */
+  margin-bottom: 1rem;
+}
+
+.contact-info-text {
+  font-size: 1.1rem;
+  color: #495057;
+}
+
+.form-control {
+  padding: 0.75rem 0.75rem;
+}

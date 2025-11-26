@@ -1,1 +1,73 @@
-<p>checkout works!</p>
+<div class="container py-5 checkout-wrapper">
+
+    <div class="row g-4">
+
+        <!-- LEFT SIDE (SUMMARY) -->
+        <div class="col-lg-4">
+            <div class="summary-card shadow-sm p-4 rounded-4">
+
+                <h4 class="fw-bold mb-3">Order Summary</h4>
+
+                <p class="m-0"><strong>Total Items:</strong> {{ cart().total_items }}</p>
+                <p class="m-0"><strong>Total Price:</strong> {{ cart().total_price | number:'1.2-2' }} EGP</p>
+
+                <hr>
+
+                <p class="text-muted small m-0">
+                    Review your details and confirm your payment.
+                </p>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE (PAYMENT METHODS) -->
+        <div class="col-lg-8">
+
+            <div class="payment-card shadow-sm p-4 rounded-4">
+
+                <h4 class="fw-bold mb-4">Choose Payment Method</h4>
+
+                <!-- NO METHODS -->
+                <div *ngIf="methods().length === 0" class="text-center py-4 text-muted">
+                    <p>No payment methods added yet.</p>
+                </div>
+
+                <!-- PAYMENT METHODS LIST -->
+                <div class="method-list mb-4" *ngIf="methods().length > 0">
+
+                    <div class="method-item" *ngFor="let m of methods()" [class.active]="selected()?.id === m.id"
+                        (click)="select(m)">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div class="d-flex align-items-center gap-2">
+                                <i [class]="getIcon(m.type)" class="fs-4"></i>
+                                <div>
+                                    <div class="fw-semibold">{{ m.name }}</div>
+                                    <small class="text-muted">{{ getMasked(m.details) }}</small>
+                                </div>
+                            </div>
+
+                            <span class="badge bg-success" *ngIf="m.is_default">Default</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PAY BUTTON -->
+                <button class="btn btn-success w-100 py-2 fs-5" [disabled]="!canPay()" (click)="pay()">
+
+                    <span *ngIf="!loading()">Pay Now</span>
+                    <span *ngIf="loading()">
+                        <div class="spinner-border spinner-border-sm"></div>
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

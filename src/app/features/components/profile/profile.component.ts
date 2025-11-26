@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ProfileService } from '../../services/profileservice';
+import { ProfileService } from '../../services/profile.service';
 import { IProfile } from '../../interfaces/IProfile';
 
 @Component({

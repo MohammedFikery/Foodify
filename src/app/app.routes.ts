@@ -73,6 +73,13 @@ export const routes: Routes = [
             (c) => c.CheckoutComponent
           ),
       },
+      {
+        path: 'ContactUs',
+        loadComponent: () =>
+          import('./features/components/contact-us/contact-us.component').then(
+            (c) => c.ContactUsComponent
+          ),
+      },
     ],
   },
 ];

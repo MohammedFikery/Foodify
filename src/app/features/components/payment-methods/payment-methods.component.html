@@ -80,42 +80,56 @@
                     <option value="cart">Cart</option>
                     <option value="wallet">Wallet</option>
                 </select>
-                <!-- <small class="text-danger" *ngIf="f.type.touched && f.type.invalid">
-                    Type is required
-                </small> -->
+
+                @if(fieldHasError('type','required')){
+                <span class="error">Please select a payment type</span>
+                }
             </div>
 
             <!-- Name -->
             <div class="col-md-6">
                 <label class="form-label">Name</label>
                 <input class="form-control" formControlName="name" placeholder="Ex: Personal Visa" />
-                <!-- <small class="text-danger" *ngIf="f.name.touched && f.name.invalid">
-                    Name is required (min 3 chars)
-                </small> -->
+
+                @if(fieldHasError('name','required')){
+                <span class="error">Name is required</span>
+                }
+                @if(fieldHasError('name','minlength')){
+                <span class="error">Name must be at least 3 characters</span>
+                }
             </div>
 
             <!-- Details -->
             <div class="col-md-6">
                 <label class="form-label">Card Number / Details</label>
                 <input class="form-control" formControlName="details" placeholder="4444 4444 4444 4444" />
-                <!-- <small class="text-danger" *ngIf="f.details.touched && f.details.invalid">
-                    Details are required (min 8 chars)
-                </small> -->
+
+                @if(fieldHasError('details','required')){
+                <span class="error">Card details are required</span>
+                }
+                @if(fieldHasError('details','minlength')){
+                <span class="error">Card details must be at least 8 characters</span>
+                }
             </div>
 
             <!-- CSV -->
             <div class="col-md-3">
                 <label class="form-label">CSV</label>
                 <input class="form-control" formControlName="csv" maxlength="4" placeholder="123" />
+
+                @if(fieldHasError('csv','maxlength')){
+                <span class="error">CSV must be up to 4 digits</span>
+                }
             </div>
 
             <!-- Expire Date -->
             <div class="col-md-3">
                 <label class="form-label">Expire Date</label>
                 <input type="date" class="form-control" formControlName="expire_date" />
-                <!-- <small class="text-danger" *ngIf="f.expire_date.touched && f.expire_date.invalid">
-                    Expire date is required
-                </small> -->
+
+                @if(fieldHasError('expire_date','required')){
+                <span class="error">Expire date is required</span>
+                }
             </div>
 
             <!-- Default -->
@@ -137,6 +151,7 @@
             </div>
 
         </div>
+
 
     </form>
 

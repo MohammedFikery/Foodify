@@ -15,3 +15,18 @@
   outline: none !important;
   box-shadow: none !important;
 }
+#toast-container {
+  position: fixed !important;
+  z-index: 999999 !important;
+}
+
+#toast-container > div {
+  position: fixed !important;
+  z-index: 999999 !important;
+}
+
+.toast-top-right {
+  top: 90px !important; /* مسافة تحت النافبار */
+  left: 0;
+  z-index: 999999 !important;
+}

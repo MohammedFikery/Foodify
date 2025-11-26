@@ -1,0 +1,36 @@
+.checkout-wrapper {
+  max-width: 1100px;
+}
+
+.summary-card,
+.payment-card {
+  background: #fff;
+  border-radius: 16px;
+}
+
+.method-item {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    background: #f7faff;
+  }
+
+  &.active {
+    border-color: #007bff;
+    background: #eaf2ff;
+  }
+}
+
+.btn-primary {
+  height: 52px;
+  font-size: 18px;
+}
+
+.fs-4 {
+  width: 28px;
+}

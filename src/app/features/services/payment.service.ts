@@ -43,4 +43,8 @@ export class PaymentService {
   deletePaymentMethod(id: number) {
     return this._Http.delete(`/api/payment-methods/${id}`);
   }
+
+  processOrder(payment_method_id: number) {
+    return this._Http.post('/api/orders', { payment_method_id });
+  }
 }

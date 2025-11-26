@@ -140,4 +140,8 @@ export class PaymentMethodsComponent implements OnInit {
         return 'fa-solid fa-credit-card';
     }
   }
+  fieldHasError(field: string, error: string) {
+    const control = this.paymentForm.get(field);
+    return control?.hasError(error) && control?.touched;
+  }
 }
